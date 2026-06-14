@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daily Brief Studio</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="偏好设置">
+        <div class="brand">
+          <div class="brand-mark">DB</div>
+          <div>
+            <h1>Daily Brief Studio</h1>
+            <p>Personal briefing workspace</p>
+          </div>
+        </div>
+
+        <form id="preference-form" class="preference-form">
+          <label class="field">
+            <span>兴趣领域</span>
+            <select id="interest" name="interest">
+              <option value="ai">人工智能与科技</option>
+              <option value="business">商业与创业</option>
+              <option value="finance">金融与市场</option>
+              <option value="policy">政策与社会</option>
+              <option value="travel">旅行与生活方式</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>关键词</span>
+            <textarea id="keywords" name="keywords" rows="4" placeholder="例如：OpenAI, 具身智能, 跨境电商, 上海"></textarea>
+          </label>
+
+          <label class="field">
+            <span>写作风格</span>
+            <select id="tone" name="tone">
+              <option value="analytical">专业分析</option>
+              <option value="concise">高密度简报</option>
+              <option value="friendly">轻松科普</option>
+              <option value="opinionated">观点鲜明</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>日报长度</span>
+            <input id="count" name="count" type="range" min="3" max="8" value="5">
+            <output id="count-output" for="count">5 条</output>
+          </label>
+
+          <fieldset class="field">
+            <legend>输出内容</legend>
+            <label class="check-row">
+              <input type="checkbox" id="include-risks" checked>
+              <span>包含风险与争议点</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="include-social" checked>
+              <span>生成社媒短文</span>
+            </label>
+          </fieldset>
+
+          <button class="primary-action" type="submit">生成摘要</button>
+        </form>
+      </aside>
+
+      <section class="workspace" aria-live="polite">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">2026-06-08 / Demo 数据</p>
+            <h2 id="brief-title">今日个性化新闻工作台</h2>
+            <p class="hero-copy">输入关注方向，得到一份可追溯、可编辑、可发布的每日内容草稿。</p>
+          </div>
+          <div class="toolbar">
+            <button id="copy-markdown" class="icon-button" type="button" title="复制 Markdown" aria-label="复制 Markdown">
+              <span aria-hidden="true">⧉</span>
+            </button>
+            <button id="download-markdown" class="icon-button" type="button" title="下载 Markdown" aria-label="下载 Markdown">
+              <span aria-hidden="true">⇩</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="summary-grid">
+          <section class="panel brief-panel">
+            <div class="panel-heading">
+              <h3>今日摘要</h3>
+              <span id="match-score" class="pill">等待生成</span>
+            </div>
+            <div id="brief-list" class="brief-list empty-state">
+              <p>输入兴趣偏好和关键词后，系统会从新闻候选池中筛选相关事件，生成摘要、影响分析和来源列表。</p>
+            </div>
+          </section>
+
+          <section class="panel insight-panel">
+            <div class="panel-heading">
+              <h3>选题判断</h3>
+              <span class="pill">Editorial</span>
+            </div>
+            <div id="insights" class="insight-list">
+              <p class="muted">日报生成后，这里会展示可写成博客的主线、反常信号和持续跟踪点。</p>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel editor-panel">
+          <div class="panel-heading">
+            <h3>博客草稿</h3>
+            <span id="word-count" class="pill">0 字</span>
+          </div>
+          <input id="blog-title" class="title-input" value="等待生成博客标题" aria-label="博客标题">
+          <textarea id="blog-body" class="blog-editor" aria-label="博客草稿"></textarea>
+        </section>
+
+        <section id="social-panel" class="panel social-panel">
+          <div class="panel-heading">
+            <h3>社媒短文</h3>
+            <span class="pill">Optional</span>
+          </div>
+          <p id="social-copy" class="social-copy">生成后会在这里得到一段适合社交平台发布的短文。</p>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
